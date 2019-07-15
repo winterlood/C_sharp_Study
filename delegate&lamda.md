@@ -227,5 +227,94 @@ namespace ConsoleApp1
 
 실전 예제이다.
 
+### 5. Func, Action Delegate
 
+프로그램을 작성 하던 도중 갑작스레 무명 메소드가 필요해진 상황이 존재 할 것이다.
+
+허나 무명 메소드를 사용하기 위해서는 delegate 변수가 있어야 하며,
+
+변수를 만들기 위해 delgate type도 선언 해야 한다.
+
+각기 다른 타입의 무명 메소드를 과연 효율적으로 어떻게 만들까 ??
+
+- 무식하게 : 모든 타입의 delegate를 만들어 버리자!
+
+아 매우 골치아픈 일이며, 유지보수 또한 어렵다.
+
+- 똑똑하게: Func, Action 변수를 사용한다.
+
+
+정답은 **똑똑하게** 이다.
+
+#### 5-1. Func Delegate
+
+Func는 C#에서 제공하는 Default Delegate 변수이다.
+
+return value가 있는 method를 참조하는 변수로써, 
+
+.NET FRAMEWORK 상에는 총 17개의 DELEGATE가 존재한다.
+
+즉 매개변수가 0개 부터 16개 까지 모두 지원한다는 뜻!
+
+다음과 같은 문법으로 사용한다.
+
+~~~
+Func <float> func0 = () => 0.1f;
+// 0.1f를 반환
+// 매개변수는 없다. 반환값은 float 형
+
+Func <int, float> func0 = (a) => a * 0.1f;
+// 매개변수는 int형 a이다. 반환값은 float 형.
+
+Func <int,int,float> func0 = (a,b) => (a+b)*0.1f;
+// 매개변수는 int a 와 int b이다.
+// 반환값은 float 형이다.
+~~~
+
+즉 **Func< Parameters{,} , Return Type > instanceName = ( Parameters{} ) => implement Expression;**
+
+식으로 사용 가능하다.
+
+
+**[ 예제 ]**
+~~~
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static float temp(int a, int b, int c) => (a + b + c) * 0.1f;
+        static void Main(string[] args)
+        {
+            Func<float> func0 = () => 0.1f ;
+            Func<int, float> func1 = (a) => a * 0.1f;
+            Func<int, int, float> func2 = (a, b) => (a + b) * 0.1f;
+            Func<int,int,int,float> func3 = new Func<int,int,int,float>(temp);
+        }
+    }
+}
+~~~
+: 다음과 같이 Func delegate 변수를 활용 할 수 있다.
+
+
+#### 5-2. Action Delegate
+
+~~~
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static float temp(int a, int b, int c) => (a + b + c) * 0.1f;
+        static void Main(string[] args)
+        {
+            Action func0 = () => Console.WriteLine("good");
+            Action <int,int> func1 = (a, b) => Console.WriteLine("dfd");
+        }
+    }
+}
+~~~
+: Action Delegate 변수는 그냥 Func에 Return Type이 없을 뿐 이다.
 
