@@ -39,7 +39,7 @@ public string this[int index] => test[index];
 ~~~
 : 이런식으로 간결하게 정의가 가능하다.
  이해가 안된다면 
- [delegate and LamdaExpression](./delegate&lamda)참고바람.
+ [delegate and LamdaExpression](./delegate&lamda.md)참고바람.
  
  
 
