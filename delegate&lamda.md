@@ -71,5 +71,130 @@ Delegate의 진가는 이제부터 시작이다.
 
 자 여기서 Call Back 메서드 설명 들어가도록 하자.
 
-Call Back Method 란
+**Call Back Method** ?!
 
+A라는 메소드를 호출 할 때, B라는 메소드를 파라미터로 넘겨주어,
+
+A로 하여금 B를 호출하여 원하는 결과를 얻게 하는 것이다
+
+예제를 통해 무슨말인지 다시 알아보자.
+
+~~~
+using System;
+
+namespace ConsoleApp1
+{
+    delegate int Mydel(int a, int b);
+    class Program
+    {
+        public static int Plus(int a, int b) => a + b;
+        public static int Minus(int a, int b) => (a > b) ? a - b : b - a;
+        public static int Product(int a, int b) => a * b;
+        public static void Print(int a, int b, Mydel del)
+            => Console.WriteLine("result is : {0}", del(a, b));
+        static void Main(string[] args)
+        {
+            Mydel delA = new Mydel(Plus);
+            Print(1, 2, delA);
+            delA = new Mydel(Minus);
+            Print(1, 2, delA);
+            delA = new Mydel(Product);
+            Print(1, 2, delA);
+        }
+    }
+}
+~~~
+
+뭐 대충 이런식으로 쓸 수 있따는 놀라운 점 .. 와우
+
+다시 설명하자면 Print라는 메소드는 del이라는 메소드를 넘겨 받아,
+
+실행시킨 결과값을 통해 출력을 하고 있다. 이게바로 콜백 메서드이다.
+
+
+### 4. Normalization Delegate
+
+Delegate의 일반화 이다.
+
+무슨말이냐면 아, 솔직히 반환타입 쓰기도 귀찮고 매개변수 쓰기도 귀찮다 그냥 delegate 객체 하나 선언하고 쓸란다!!
+
+할 때 쓸 수 있는것으로,
+
+~~~
+using System;
+
+namespace ConsoleApp1
+{
+    delegate T Mydel<T> (T a , T b);
+    class Program
+    {
+        public static int Plus(int a, int b) => a + b;
+        public static int Minus(int a, int b) => (a > b) ? a - b : b - a;
+        public static int Product(int a, int b) => a * b;
+
+        public static float FPlus(float a, float b) => a + b;
+        public static void Print<T>(T a, T b, Mydel<T> del)
+            => Console.WriteLine("result is : {0}", del(a,b));
+        static void Main(string[] args)
+        {
+            Mydel<int> delA = new Mydel<int>(Plus);
+            Print(1, 2, delA);
+             delA = new Mydel<int>(Minus);
+            Print(1, 2, delA);
+            Mydel<float> delF = new Mydel<float>(FPlus);
+            Print(1.0f, 2.4f, delF);
+        }
+    }
+}
+~~~
+머 .. 이런식으로 템플릿 조차도 대리하여 사용할 수 있따..
+
+### 4. Delegate Chain
+
+지금까지는 하나의 delegate에 하나의 method만을 참조하였다.
+
+하지만 chain을 이용하여,  하나의 delegate에 여러가지의 메소드를 참조 시킬 수 있다.
+
+~~~
+MyDelegate del;
+del = new Mydel(func0);
+del += func1;
+del += func2;
+// del에 func0,1,2가 순서대로 들어가 있음
+del -= func0;
+// del에 func1,2가 존재
+~~~
+
+자 이렇게! del이라는 대리자 변수에 func1과 func2를 추가하고 func0을 빼는 등 chain을 통해 여러가지의 메소드를 연결해 이용 할 수 있다.
+
+~~~
+using System;
+
+namespace ConsoleApp1
+{
+    delegate void Mydel();
+    class Program
+    {
+        public static void func0() => Console.Write("Func0");
+        public static void func1() => Console.Write("Func1");
+        public static void func2() => Console.Write("Func2");
+        static void Main(string[] args)
+        {
+            Mydel del = new Mydel (func0);
+            del();
+            Console.WriteLine();
+            del += func1;
+            del();
+            Console.WriteLine();
+            del += func2;
+            del();
+            Console.WriteLine();
+            del-=func1;
+            del();
+            Console.WriteLine();
+        }
+    }
+}
+~~~
+
+실전 예제이다.
