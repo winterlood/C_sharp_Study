@@ -1,19 +1,22 @@
-.NET ÇÁ·ÎÆÛÆ¼ ¶õ ?
+#.NET í”„ë¡œí¼í‹° ëž€ ?
+---
+ê°ì²´ì§€í–¥ ì–¸ì–´ë¡œ í´ëž˜ìŠ¤ë¥¼ êµ¬í˜„ í•  ë•Œ,
 
-°´Ã¼ÁöÇâ ¾ð¾î·Î Å¬·¡½º¸¦ ±¸Çö ÇÒ ¶§,
+ì •ë³´ì˜ ì€ë‹‰ê³¼ ìº¡ìŠí™”ë¥¼ ìœ„í•´, ëª¨ë“  ë©¤ë²„ë³€ìˆ˜ë¥¼ GET SETí•¨ìˆ˜ë¥¼ êµ¬í˜„ í•´ ì£¼ì—ˆì–´ì•¼ ë˜ì—ˆë‹¤.
 
-Á¤º¸ÀÇ Àº´Ð°ú Ä¸½¶È­¸¦ À§ÇØ, ¸ðµç ¸â¹öº¯¼ö¸¦ GET SETÇÔ¼ö¸¦ ±¸Çö ÇØ ÁÖ¾ú¾î¾ß µÇ¾ú´Ù.
+ì˜ˆë¥¼ ë“¤ë©´ JAVAì˜ GETTER SETTER ê°™ì€ 
 
-¿¹¸¦ µé¸é JAVAÀÇ GETTER SETTER °°Àº 
+í•˜ì§€ë§Œ ë„ˆë¬´ ë§Žì€ ë³€ìˆ˜ê°€ í•„ìš” í•  ê²½ìš° GET SET í•¨ìˆ˜ë¡œ ì½”ë“œê°€ ë„ë°°ë˜ì–´ ë„ì €ížˆ ì‚¬ìš© í•  ìˆ˜ ì—†ëŠ” ìŠ¤íŒŒê²Œí‹°ê°€ ë˜ì–´ë²„ë¦¬ëŠ”
 
-ÇÏÁö¸¸ ³Ê¹« ¸¹Àº º¯¼ö°¡ ÇÊ¿ä ÇÒ °æ¿ì GET SET ÇÔ¼ö·Î ÄÚµå°¡ µµ¹èµÇ¾î µµÀúÈ÷ »ç¿ë ÇÒ ¼ö ¾ø´Â ½ºÆÄ°ÔÆ¼°¡ µÇ¾î¹ö¸®´Â
+ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•˜ì—¬, PROPERTYê°€ ì¡´ìž¬,
 
-°ÍÀ» ¹æÁöÇÏ±â À§ÇÏ¿©, PROPERTY°¡ Á¸Àç,
+PROPERTYëž€, ìŠ¤ë§ˆíŠ¸ í•„ë“œ ë¼ê³ ë„ í•˜ëŠ”ë°,
 
-PROPERTY¶õ, ½º¸¶Æ® ÇÊµå ¶ó°íµµ ÇÏ´Âµ¥,
+ë©¤ë²„ í•„ë“œì— ê°’ì„ í• ë‹¹í•˜ëŠ” ë°©ë²•ìœ¼ë¡œ ê°ì²´ì˜ ì†ì„±ì„ ë‚˜íƒ€ë‚´ëŠ” í•„ë“œì˜ íŠ¹ë³„í•œ í˜•íƒœì´ë‹¤.
 
-¸â¹ö ÇÊµå¿¡ °ªÀ» ÇÒ´çÇÏ´Â ¹æ¹ýÀ¸·Î °´Ã¼ÀÇ ¼Ó¼ºÀ» ³ªÅ¸³»´Â ÇÊµåÀÇ Æ¯º°ÇÑ ÇüÅÂ!
+ì˜ˆì œë¥¼ í†µí•´ ì‚´íŽ´ë³´ìž 
 
+~~~
 using System;
 class Triangle1
 {
@@ -33,12 +36,12 @@ class Triangle1
         get { return width * height / 2; }
     }
 }
+~~~
 
-¹¹ ¾à°£ ÀÌ·±½ÄÀ¸·Î Àº´ÐÀ» À§ÇØ PRIVATEÀ¸·Î ¼±¾ðµÈ º¯¼ö¸¦ °Çµå¸®Áö ¾Ê°í, »ç¿ëÇÑ´Ù.
-
+ë­ ì•½ê°„ ì´ëŸ°ì‹ìœ¼ë¡œ ì€ë‹‰ì„ ìœ„í•´ PRIVATEìœ¼ë¡œ ì„ ì–¸ëœ ë³€ìˆ˜ë¥¼ ê±´ë“œë¦¬ì§€ ì•Šê³ , ì‚¬ìš©í•œë‹¤.
+~~~
 class Triangle2
 {
-    //¾Æ·¡´Â ÀÚµ¿±¸Çö ÇÁ·ÎÆÛÆ¼ ÀÌ´Ù.
     public int Width
     {
         get;
@@ -54,17 +57,18 @@ class Triangle2
         get { return Width * Height / 2; }
     }
 }
+~~~
+í•˜ì§€ë§Œ ë³´í†µ ì´ëŸ°ì‹ìœ¼ë¡œ ìžë™êµ¬í˜„ í”„ë¡œí¼í‹°ë¥¼ ì‚¬ìš©í•˜ëŠ” ê²½ìš°ê°€ ìžˆë‹¤ ã…Žã…Ž.
 
-ÇÏÁö¸¸ º¸Åë ÀÌ·±½ÄÀ¸·Î ÀÚµ¿±¸Çö ÇÁ·ÎÆÛÆ¼¸¦ »ç¿ëÇÏ´Â °æ¿ì°¡ ÀÖ´Ù ¤¾¤¾.
+ìž ì—¬ê¸°ì„œ ì€ë‹‰ì´ ì•ˆì§€ì¼œì§€ëŠ”ê±° ì•„ë‹ˆëƒ ?? í•  ìˆ˜ ìžˆë”°.
 
-ÀÚ ¿©±â¼­ Àº´ÐÀÌ ¾ÈÁöÄÑÁö´Â°Å ¾Æ´Ï³Ä ?? ÇÒ ¼ö ÀÖµû.
+OOP ì—ì„œ ì€ë‹‰ì´ëž€ : ê°ì²´ì˜ ë°ì´í„°ì— ì™¸ë¶€ ì½”ë“œê°€ ì§ì ‘ ì ‘ê·¼í•˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤ëŠ” ê²ƒì— ì˜ë¯¸ë¥¼ ë‘”ë‹¤.
 
-OOP ¿¡¼­ Àº´ÐÀÌ¶õ : °´Ã¼ÀÇ µ¥ÀÌÅÍ¿¡ ¿ÜºÎ ÄÚµå°¡ Á÷Á¢ Á¢±ÙÇÏ´Â °ÍÀ» ¸·´Â´Ù´Â °Í¿¡ ÀÇ¹Ì¸¦ µÐ´Ù.
-
-Áï GETTER¿Í SETTER¸¦ ÀÌ¿ëÇÏ¿©¼­¸¸ µ¥ÀÌÅÍ¿¡ Á¢±ÙÇÒ ¼ö ÀÖÀ¸¹Ç·Î Àº´Ð¼ºÀÌ ÁöÄÑÁø´Ù°í º¼ ¼ö ÀÖ´Ù.
+ì¦‰ GETTERì™€ SETTERë¥¼ ì´ìš©í•˜ì—¬ì„œë§Œ ë°ì´í„°ì— ì ‘ê·¼í•  ìˆ˜ ìžˆìœ¼ë¯€ë¡œ ì€ë‹‰ì„±ì´ ì§€ì¼œì§„ë‹¤ê³  ë³¼ ìˆ˜ ìžˆë‹¤.
 
 
-[ ¿¹Á¦ 1 ]
+## [ ì˜ˆì œ 1 ] ##
+~~~
 class MyClass
 
 {
@@ -72,11 +76,12 @@ class MyClass
 public string name; 
 
 }
+~~~
+: nameì— ì ‘ê·¼ í•  ìˆ˜ ìžˆëŠ” ë°©ë²•ì€ ì ˆëŒ€ ì—†ë‹¤.
 
-: name¿¡ Á¢±Ù ÇÒ ¼ö ÀÖ´Â ¹æ¹ýÀº Àý´ë ¾ø´Ù.
 
-
-[ ¿¹Á¦ 2 ]
+## [ ì˜ˆì œ 2 ] ##
+~~~
 class MyClass
 
 {
@@ -86,17 +91,19 @@ private string name;
 public string Name {get{return name;} set {name=value;}}
 
 }
+~~~
 
-: ÇÏÁö¸¸ ¾Æ·¡¿Í °°ÀÌ ÇÁ·ÎÆÛÆ¼¸¦ ÀÌ¿ëÇÏ¸é ÅëÁ¦ÇÒ ¼ö´ÜÀÌ »ý±é´Ï´Ù. name ÇÊµå¿¡ ´ëÇÑ Á÷Á¢ÀûÀÎ Á¢±ÙÀº ¸·À¸´Ï±î¿ä.
+: í•˜ì§€ë§Œ ì•„ëž˜ì™€ ê°™ì´ í”„ë¡œí¼í‹°ë¥¼ ì´ìš©í•˜ë©´ í†µì œí•  ìˆ˜ë‹¨ì´ ìƒê¹ë‹ˆë‹¤. name í•„ë“œì— ëŒ€í•œ ì§ì ‘ì ì¸ ì ‘ê·¼ì€ ë§‰ìœ¼ë‹ˆê¹Œìš”.
 
-(Caller Attribute¸¦ ÀÌ¿ëÇÏ¸é ¾î¶² ÄÚµå¿¡¼­ Á¢±ÙÇÏ°í ÀÖ´ÂÁö¸¦ ÃßÀûÇÒ ¼öµµ ÀÖ½À´Ï´Ù.)
-
-
-
-set ÇÁ·ÎÆÛÆ¼¸¦ Á¶±Ý Á¶Á¤ÇØº¼±î¿ä?
+(Caller Attributeë¥¼ ì´ìš©í•˜ë©´ ì–´ë–¤ ì½”ë“œì—ì„œ ì ‘ê·¼í•˜ê³  ìžˆëŠ”ì§€ë¥¼ ì¶”ì í•  ìˆ˜ë„ ìžˆìŠµë‹ˆë‹¤.)
 
 
-[ ¿¹Á¦ 3 ]
+
+set í”„ë¡œí¼í‹°ë¥¼ ì¡°ê¸ˆ ì¡°ì •í•´ë³¼ê¹Œìš”?
+
+
+## [ ì˜ˆì œ 3 ] ##
+~~~
 class MyClass
 
 {
@@ -113,24 +120,24 @@ set
 
 if ( value.Length mmgt 16 )
 
-throw new System.Exception("16ÀÚ ÀÌ»óÀÇ ÀÌ¸§Àº »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.");
+throw new System.Exception("16ìž ì´ìƒì˜ ì´ë¦„ì€ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
 else if ( value.Length mmlt 2 )
 
-throw new System.Exception("ÀÌ¸§Àº µÎ ±ÛÀÚ ÀÌ»óÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.);
+throw new System.Exception("ì´ë¦„ì€ ë‘ ê¸€ìž ì´ìƒì„ ìž…ë ¥í•´ì£¼ì„¸ìš”.);
 
 else
 
 name = value;
 
 }}}
+~~~
 
+: ì´ëŸ¬ë©´ ì¶”í›„ì— ë³€ìˆ˜ì— ì´ìƒí•œ ê°’ì´ ë“¤ì–´ê°„ë‹¤! ê°™ì€ ë²„ê·¸ë¥¼ í•´ê²° í•  ë•Œ ë‹¨ìˆœížˆ í”„ë¡œí¼í‹°ì˜ ìœ íš¨ì„±ë§Œ ê²€ì‚¬í•´ ì£¼ë©´ 
 
-: ÀÌ·¯¸é ÃßÈÄ¿¡ º¯¼ö¿¡ ÀÌ»óÇÑ °ªÀÌ µé¾î°£´Ù! °°Àº ¹ö±×¸¦ ÇØ°á ÇÒ ¶§ ´Ü¼øÈ÷ ÇÁ·ÎÆÛÆ¼ÀÇ À¯È¿¼º¸¸ °Ë»çÇØ ÁÖ¸é 
+ì¡°ì¹˜í•  ìˆ˜ ìžˆìœ¼ë‹ˆ ê°œë°œ ë° ìœ ì§€ ë³´ìˆ˜ì— ìš©ì´í•˜ë‹¤.
 
-Á¶Ä¡ÇÒ ¼ö ÀÖÀ¸´Ï °³¹ß ¹× À¯Áö º¸¼ö¿¡ ¿ëÀÌÇÏ´Ù.
+í¼í‹°ì˜ ì€ë‹‰ì„±ì€ ë°ì´í„°ë¡œì˜ ì§ì ‘ì ì¸ ì ‘ê·¼ì„ ë§‰ëŠ” ê²ƒë§Œìœ¼ë¡œ ë‹¬ì„±í–ˆë‹¤ê³  í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. 
 
-ÆÛÆ¼ÀÇ Àº´Ð¼ºÀº µ¥ÀÌÅÍ·ÎÀÇ Á÷Á¢ÀûÀÎ Á¢±ÙÀ» ¸·´Â °Í¸¸À¸·Î ´Þ¼ºÇß´Ù°í ÇÒ ¼ö ÀÖ½À´Ï´Ù. 
-
-µ¥ÀÌÅÍÀÇ Á¢±ÙÀ» ¾ó¸¶³ª ±î´Ù·Ó°Ô ¸¸µé °ÍÀÎÁö´Â ÇÁ·Î±×·¡¸Ó¿Í ¿ä±¸»çÇ×¿¡ ´Þ·ÁÀÖÁö¿ä.
+ë°ì´í„°ì˜ ì ‘ê·¼ì„ ì–¼ë§ˆë‚˜ ê¹Œë‹¤ë¡­ê²Œ ë§Œë“¤ ê²ƒì¸ì§€ëŠ” í”„ë¡œê·¸ëž˜ë¨¸ì™€ ìš”êµ¬ì‚¬í•­ì— ë‹¬ë ¤ìžˆì§€ìš”.
 
