@@ -340,3 +340,7 @@ Socket tmpSock = serverSock.Accept();
 **[클라이언트 소켓 Connect -> 서버 소켓 Accept]**
 
 저는 됩니당 
+
+
+다음은 [소켓2](./socket2.md)
+에서 
