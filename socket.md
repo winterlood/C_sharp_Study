@@ -329,3 +329,14 @@ Socket tmpSock = serverSock.Accept();
 
 자 이러면 Clinet와 Server의 소켓연결은 끝났습니다.
 
+
+# 난 안되는데 ? 하시는 분들을 위해
+
+
+![](./socket4.jpg)
+**[서버 소켓 bind -> listen]** 
+
+![](./socket5.JPG)<br>
+**[클라이언트 소켓 Connect -> 서버 소켓 Accept]**
+
+저는 됩니당 
