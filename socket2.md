@@ -61,7 +61,7 @@ byte 형식으로 보내게 되있으므로 인코딩 과정을 거쳤습니다.
 
 > **using System.Text;** 을 using 해주셔야 Encoding 을 이용하실 수 있어용
 
-### 보내기
+### Server : 메세지 보내기
 
 ~~~
 tmpSock.BeginSend(msg, 0, 11, SocketFlags.None, new AsyncCallback(sendStr), tmpSock);
@@ -123,5 +123,40 @@ SocketFlags 는 전송 옵션입니다.
         }
 ~~~
 
-보시면, tmpSock 이라는 소켓 객체가 (Socket) 으로 명시적으로 캐스팅 된 a의 
+
+**[1]**
+~~~
+Socket tmpSock = (Socket)a.AsyncState;
+~~~
+보시면, tmpSock 이라는 소켓 객체가 (Socket) 으로 명시적으로 캐스팅 된 IAsyncResult 형의 a의 비동기 state를 받아옵니다.
+> IAsyncResult 는 비동기 작업의 상태를 나타내 주는 객체입니다.
+
+전송 소켓 객체의 상태를 가져온다는 것이죠..
+
+전송이 끝났는데 왜가져 왔냐구요 ??
+
+
+**[2]**
+~~~
+int strlen = tmpSock.EndSend(a);
+~~~
+
+전송이 끝나면 전송을 끝내줘야 하겠죠 ??
+
+그래서 전송 소켓 객체를 가져온겁니다.
+
+EndSend 메서드는 전송을 끝내버리는 기능이 있습니다.. 
+
+반환값으로는 전송한 데이터의 크기를 되돌려줍니다. 그래서 int형으로 받은거에요
+
+자 이렇게 데이터 전송 -> 전송 종료 는 모두 마쳤습니다.
+
+이제 client측의 수신을 살펴볼게요
+
+
+#### Client : 메세지 받기!
+
+수신 과정은 송신 과정과 비슷해요
+
+
 
