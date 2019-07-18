@@ -73,7 +73,7 @@ class MyClass
 
 {
 
-public string name; 
+private string name; 
 
 }
 ~~~
