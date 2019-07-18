@@ -114,8 +114,148 @@ client는 서버에 요청을하는 역할을 한다.
 Server에 비해 매우 간단하다.
 
 
+드디어!! 통신 동작 원리
+---
+
+- 1. Server Socekt이 Bind()를 하고 Listen()상태로 대기
+- 2. Client Socket은 Connect()로 Server Socket에 접근
+- 3. Server Socket은 Accept()를 통해 Client()와 Server()사이의 Connection을 설정함
+- 4. 원하는 통신을 한다.
+- 5. 통신 Close
+
+하지만 여기서 중요한 점
+
+사실은 Listen 상태인 Server 소켓에 Connect를 보내고, 그것을 Accept하면서 이 둘사이에만 연결이 이루어지지는 않는다.
+
+뭔소리냐 ??
+
+Server의 본진은 Listen을 하다가, Client의 Connect()요청을 받으면,
+
+**새로운 소켓을 하나 더 만든다** 
+
+그리고 이녀석으로 통신을 한다.
+
+기존의 소켓은 **꼐속 Listen()상태에 머물러, 다른 소켓과의 통신을 대비한다.**
 
 
+구현 with C#
+---
+
+![socket3](./socket3.jpg)
+
+
+> 요 빨강색 부분 부터 해보도록 할게여! <br>
+> 참고로 펜으로 칠해서 잘 칠해지진 않았습니다 .. ㅎㅎ
+
+#### server : bind(), Listen()
+
+서버부터 시작하도록 하죠!
+
+동작은 다음과 같이 해야 합니다.
+
+- 1. server socekt을 bind 한다.
+- 1. server socket이 listen한다.
+- 2. clinet socket이 server에 connetc 한다.
+- 3. server socket이 client를 accept한다. 이 때 server는 자신의 분신을 만들어 accept한다!! (본진은 계속 listen)
+
+**[ 코드가 없으면 섭섭하겠지? ]**
+~~~
+using System;
+using System.Net.Sockets;
+using System.Net;
+namespace sockettest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Socket serverSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            serverSock.Bind(new IPEndPoint(IPAddress.Any, 10801));
+            serverSock.Listen(100);
+            Console.WriteLine("정환 서버 Listen중........");
+        }
+    }
+}
+~~~
+
+자자자 설명 들어가겠습니당
+
+### 소켓 만들기!!!
+~~~
+Socket serverSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+~~~
+
+1. 새로운 Socket 객체를 하나 생성했습니다!
+
+2. 파라미터는 3개가 필요한데요, 파라미터들에 대한 설명을 하고 넘어가도록 할게요
+
+#### 파라미터
+
+##### AddressFamily.InterNetwork는 사용할 주소체계를 나타냅니다.
+
+ - 자 여기서, Adress Family는 주소를 어떻게 지정할 것인지에 대한 '주소지정스키마' 입니다.
+
+ - interNetwork는 기존의 IP주소 체계인 IPv4의 주소 체계입니다. v6를 사용한다면 다른 프로퍼티를 사용해야 하겠죠..?
+
+##### SocketType.Stream 은 데이터의 전송 방식입니다..
+
+ - SocketType은 말 그대로 소켓의 타입이에요, 무슨 데이터형을 담을 소켓이냐..? 대략 이런 의미인거 같은데 
+    > 솔직히 아닐수도 있씁니다..
+
+ - Stream이란 데이터 중복이나 경계 유지없이 신뢰성있는 양방향 연결 기반의 byte stream을 지원해줍니다.
+
+#####  ProtocolType.IP
+
+ - Protocol Type은 말그대로 통신규약을 뭐쓸거니?? 라고물어보는거네요, IP를 써주도록 하겠씁니다.
+
+
+자 이렇게 소켓 객체를 간단히 생성해 보았습니다 아주 쉽죠!?
+
+
+
+### 소켓 바인딩하기!!!
+~~~
+serverSock.Bind(new IPEndPoint(IPAddress.Any, 10801));
+~~~
+
+소켓을 만들었으면 해당 소켓이 어떤 client의 요청을 받아 들일 것이지, 또 어떤 포트를 사용할건지에 대해 설정해줘야 합니다.
+
+이것은 IPEndPoint 객체를 이용해서 작업을 수행 할 수 있는데요,
+
+IPEndPoint란 IP의 끝점이에요 종단점이라는 뜻이죠,
+
+우리의 소켓은 뭐죠?? 통신의 극점(EndPoint)에요, 자 한마디로 통신의 극점에 바인드 하겠다!! 라는겁니다.
+
+그럼 어디에 바인드 할지도 알아야 겠죠?? 파라미터를 통해 적용시켜 봅시다.
+
+우선 IPAddress.Any는 모든 클라이언트에서 오는 요청을 받겠다는 거에요 아무나 다 드루와!! 같은 겁니다.
+
+뒤에 나오는 10801은 포트번호입니다. 
+
+한마디로 10801번 포트로 오는 모든 client의 requset는 다드루와 에요 그리고 그곳은 통신의 극점인 소켓 이라는 거죠!
+
+**포트번호는 임의로 사용한 것이니 반드시 따라할 필요는 없어요**
+
+
+### 서버 Listen 시키기!!!
+
+~~~
+serverSock.Listen(100);
+~~~
+
+Listen()입니다. 
+
+소켓이 되어버린 serverSock객체는 이제 Listen() 상태로 빠집니다
+
+파라미터로 integer하나가 필요한데 
+
+이것은 해당 서버소켓이 연결을 대기하게 할 수 있는 최대 대기자 목록입니다.
+
+100개의 소켓이 대기할 수 있다는거에요 
+
+자 이렇게 server측 소켓 작업은 마무리 되었습니다. 
+
+우선 client가 제가 만든 이 server 소켓에 connect() 하도록 만들어 볼게요
 
 
 
