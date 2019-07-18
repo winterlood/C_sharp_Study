@@ -147,7 +147,7 @@ Server의 본진은 Listen을 하다가, Client의 Connect()요청을 받으면,
 > 요 빨강색 부분 부터 해보도록 할게여! <br>
 > 참고로 펜으로 칠해서 잘 칠해지진 않았습니다 .. ㅎㅎ
 
-#### server : bind(), Listen()
+## server : bind(), Listen()
 
 서버부터 시작하도록 하죠!
 
@@ -259,4 +259,73 @@ Listen()입니다.
 
 
 
+## Client : Connect()
+
+이미 server 소켓은 listen() 하고 있어요,
+
+이제 우리는 Connect()만 보내주면 됩니다! 
+
+당연히 프로젝트는 두개로 진행해야 겠죠 ??
+
+
+**[예제 투척]**
+~~~
+using System;
+using System.Net.Sockets;
+using System.Net;
+
+namespace jclient
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Socket clientSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            clientSock.Connect(new IPEndPoint(IPAddress.Loopback, 10801));
+            Console.WriteLine("정환 클라이언트 연결!");
+        }
+    }
+}
+~~~
+
+자이렇게 아까와 같은 방식으로 연결을 시도해줍니다.
+
+바뀐건 하나밖에 없어요!!
+
+뭐냐면
+
+#### Client: Connect()
+
+이미 server는 listen 중이므로 우리는 connect 요청만 보내주면 됩니다.
+
+~~~
+clientSock.Connect(new IPEndPoint(IPAddress.Loopback, 10801));
+~~~
+
+Listen() 중인 server에 client는 Connect 요청을 보냈습니다.
+
+IPEndPoint 객체는 왜 사용 했을 까요 ??
+
+당연히 어느 소켓에 연결해야 되는지 알아야 하잖아요 ..
+
+저는 제 컴퓨터의 서버에 제컴퓨터의 클라이언트가 연결되므로 ip는 Loop Back을 사용했어용
+
+만약 다른 컴퓨터의 클라이언트라면... 서버의 ip address를 지정해줘야 겠쬬??
+
+자 이제 clinet에서 Connect를 했으니 Server에서 Accept를 해봅시다!!
+
+
+## Server : Accept()
+
+~~~
+Socket tmpSock = serverSock.Accept();
+~~~
+
+별 다를게 없습니다.. 
+
+아까 말씀드렸죠 ?? 본진은 대기하고 분신을 만든다!!
+
+분신인 tmpSock을 만들어서 serverSock에 Connect된 client socket을 Accept 해줍니다!
+
+자 이러면 Clinet와 Server의 소켓연결은 끝났습니다.
 
