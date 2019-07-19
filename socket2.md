@@ -158,5 +158,103 @@ EndSend 메서드는 전송을 끝내버리는 기능이 있습니다..
 
 수신 과정은 송신 과정과 비슷해요
 
+~~~
+using System;
+using System.Net.Sockets;
+using System.Net;
+using System.Text;
+
+namespace jclient
+{
+    class Program
+    {
+        static byte[] getBytes = new byte[11];
+
+        static void getStr(IAsyncResult a)
+        {
+            Socket clientSock = (Socket)a.AsyncState;
+            int strLength = clientSock.EndReceive(a);
+            Console.WriteLine(Encoding.Default.GetString(getBytes));
+        }
+
+        static void Main(string[] args)
+        {
+            Socket clientSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            clientSock.Connect(new IPEndPoint(IPAddress.Loopback, 10801));
+            Console.WriteLine("정환 클라이언트 연결!");
+            clientSock.BeginReceive(getBytes, 0, 11, SocketFlags.None, new AsyncCallback(getStr), clientSock);
+        }
+    }
+}
+~~~
+
+자 뭔가가 많이 추가되었죠??
+
+11byte를 BeginReceive()로 수신하여, receiveBytes에 대입하고 있네요, 
+
+여기서 또 call back method가 등장합니다. 
+
+이 call back method를 왜 사용하는가에 대하여 한번 얘기를 했었던것 같은데 이따가 다시 얘기 하도록 하겠습니다.
+
+수신이 끝나면 실행 될 getStr 메소드가 받아온 byte (getBytes에 저장되어 있겠지요 ?)를 
+
+String으로 Encoding하여 출력합니다.
 
 
+자 이렇게 socket을 이용하여 server에서 client로 문자열을 전송해 보았는데요,
+
+정리 한번 하고 마치도록 하겠습니다.
+
+
+
+정리
+===
+
+1. Call Back Method는 왜 사용했는가 ?
+---
+
+자 여기서 주목해야될 점은 우리가 메세지를 보내고 수신할 때 어떤 메소드를 사용했느냐? 인데요
+
+우리는 **BeginSend()** 메소드를 통하여 메세지를 송신하고,  **BeginRecive()**  메소드를 이용하여 수신하였습니다.
+
+물론 .NET에는 메세지를 보내는 **Send()**  와 수신하는 **Reveive** 메소드도 존재합니다만
+
+무슨차이가 있느냐 ?!
+
+바로 **동기/비동기** 의 차이입니다.
+
+메소드 앞에 **Begin** 이라는 문자가 붙으면 그것은 **비동기** 식 송/수신을 의미하고,
+
+메소드 앞에 아무것도 붙지 않다면 그것은 **동기** 식 송/수신을 의미합니다.
+
+우리는 여기서 **비동기 방식**을 사용하였습니다.
+
+왜그랬을까요 ?
+
+만약 우리가 **동기 방식** 을 사용했다면,
+
+11byte가 모두 전송된 뒤에서야 다른 작업을 수행 할 수 있습니다.
+
+11byte는 뭐 몇개 안되니깐 동기방식으로 써도 문제가 크게 없겠죠,
+
+하지만 우리가 천만 byte를 전송한다면 어떨까요 ??
+
+천만 byte의 전송이 종료되기 전까지 아무런 작업도 수행 할 수 없겠죠,
+
+그래서 **비동기 방식**의 메소드인 **BeginSend/Receive()** 를 사용한 것입니다.
+
+프로그램이 멈추거나 정지하는 일은 없을 것이고,
+
+만약 전송이 완료되었다면 완료된 후의 작업은 Call Back Method를 이용하여 수행하도록 하면 됩니다.
+
+음식점을 예로 들어보죠
+
+주방장이 주방보조에게 이렇게 말하는 겁니다.
+
+**나는 이제 국을 끓일건데, 너는 양파 다썰었으면 당근까지 썰고 퇴근해!**
+
+자 이러면 여러가지 작업을 동시에 수행할 수 있게 되겠죠?
+
+프로그램이 중간에 멈추는일을 방지하기 위하여 저는 **비동기 방식** 을 채택하였습니다.
+
+질문있으시면 언제든지 메일 환영합니다.
