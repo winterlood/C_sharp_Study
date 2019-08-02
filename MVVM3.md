@@ -61,4 +61,5 @@ Local이 뭐냐 ? 할 수 있는데.
 
 물론 현재 View파일과 ViewModel 파일이 같은 폴더내에 위치해야만 한다.
 
+다음 시간부터 직접적으로 Command와 Data를 Binding 해 보는 시간을 갖도록 하자.
 
