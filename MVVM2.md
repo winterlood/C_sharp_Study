@@ -96,6 +96,37 @@ MVC의 CONTROLLER 가 MVVM의 VIEW MODEL과 동치인가? 라고 생각할 수 �
 
 ![그림](./img/datacontext.JPG)
 
+> 하나의 VIEW MODEL을 CONTEXT로 VIEW에 할당했다고 하자 (예를 들면 VIEW의 WINDOW나 GRID 정도??)
+
+WPF 에서는 이것을 FRAMWORK의 DATACONTEXT 라는 PROPERTY로 정의해 놓았다
+
+여기서 중요한 점은
+
+MVVM에서는 VIEW 와 VIEWMODEL이 항상 1:1 대응일 필요가 없다는 것이다.
+
+VIEW와 VIEWMODEL 간의 1:1이 아닌 
+
+VIEW의 특정 FRAMEWORK와 VIEWMODEL 간의 1:1이므로, 각각의 UIELEMENT가 각각의 VIEW MODEL을 가질 수 있는것이다.
+
+![](./img/viewmodel.JPG)
+
+이런 그림처럼 이루어져 있다는 것이다..
+
+자 여기서 중요한 wpf 의 장점 또 한가지!
+
+WPF 내에서의 VIEW는 자신의 CONTEXT가 할당되어있지 않다면!
+
+자신의 부모를 계속 찾아 올라가면서 할당된 CONTEXT를 자신의 CONTEXT로 삼는다!
+
+무슨말이냐 .. ?
+
+![](./img/viewmodel2.JPG)
+
+그림에서 보이는 stack panel과 text box는 현재 자신의 DATA CONTEXT 정해지지 않았다.
+
+그럴 경우 해당 stack panel과 text box는 부모인 UIElement의 DATA CONTEXT를 자신의 DATA CONTEXT로 삼게 된다는 것이다.
+
+그러므로 CONTEXT를 잘 구성한 설계가 중요하다고 할 수 있다.
 
 
 
