@@ -338,7 +338,7 @@ _executeMethod는 분명 Action delegate였다.
 그래서 보다 이해하기 편하게 누구도 안했던 이미지를 준비해 보았다.
 
 
-![](./Binding.JPG)
+![](./img/Binding.JPG)
 
 다음과 같은 Flow로 흘러가는 것이다.
 
