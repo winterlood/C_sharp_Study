@@ -1,4 +1,4 @@
-Socket 이란?
+Socket 이란??
 ===
 
 Socket은 TCP/IP로 통신하는 네트워크 내에서 일어나는 통신 방법이다.
